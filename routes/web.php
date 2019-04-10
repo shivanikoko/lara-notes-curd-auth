@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Generating URLs for Notes Controller
+
+Route::resource('notes','NotesController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

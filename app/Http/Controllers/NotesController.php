@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Notes;
+use App\Note;
 use Illuminate\Http\Request;
 
 class NotesController extends Controller
@@ -14,7 +14,10 @@ class NotesController extends Controller
      */
     public function index()
     {
-        //
+        $note   =   Note::all();
+        return view('notes/index',[
+            'notes' => $note
+        ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class NotesController extends Controller
      */
     public function create()
     {
-        //
+        return view('notes/create');
     }
 
     /**
@@ -35,7 +38,15 @@ class NotesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validate
+        $request->validate([
+            'title'         =>  'required|min:5',
+            'description'   =>  'required'
+        ]);
+
+        $note   =   Note::create(request(['title','description']));
+
+        return redirect('/notes'.'/'.$note->id);
     }
 
     /**
@@ -44,9 +55,9 @@ class NotesController extends Controller
      * @param  \App\Notes  $notes
      * @return \Illuminate\Http\Response
      */
-    public function show(Notes $notes)
+    public function show(Note $note)
     {
-        //
+        return view('notes/show',compact('note'));
     }
 
     /**
@@ -55,9 +66,9 @@ class NotesController extends Controller
      * @param  \App\Notes  $notes
      * @return \Illuminate\Http\Response
      */
-    public function edit(Notes $notes)
+    public function edit(Note $note)
     {
-        //
+        return view('notes/edit',compact('note'));
     }
 
     /**
@@ -67,9 +78,16 @@ class NotesController extends Controller
      * @param  \App\Notes  $notes
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Notes $notes)
+    public function update(Request $request, Note $note)
     {
-        //
+        //Validate
+        $request->validate([
+            'title'         =>  'required|min:5',
+            'description'   =>  'required',   
+        ]);
+
+        $note->update(request(['title','description']));
+        return redirect('/notes'.'/'.$note->id);
     }
 
     /**
@@ -78,8 +96,9 @@ class NotesController extends Controller
      * @param  \App\Notes  $notes
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Notes $notes)
+    public function destroy(Note $note)
     {
-        //
+        $note->delete();
+        return redirect('/notes');
     }
 }
