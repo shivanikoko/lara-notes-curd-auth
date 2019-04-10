@@ -5,49 +5,36 @@
 @endsection
 
 @section('content')
-
-    <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-            <a class="btn btn-success float-right" href="/notes/create">Add New Note</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success float-right" href="/notes/create">Add New Note</a>
+            </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Sr No.</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($notes as $key=>$note)
-                        <tr>
-                            <td>{{$key+1}}</td>
-                            <td>{{$note->title}}</td>
-                            <td>{{ str_limit($note->description, $limit = 70, $end = '...') }}</td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="/notes/{{$note->id}}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-
-                                    <a href="/notes/{{$note->id}}/edit/" class="btn btn-info"><i class="fa fa-pencil"></i></a>
-
+        <div class="row">
+            @foreach($notes as $key=>$note)
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$note->title}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class='fa fa-clock'></i> 10 hours ago</h6>
+                            <p class="card-text">{{ str_limit($note->description, $limit = 15, $end = '...') }}</p>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <a href="/notes/{{$note->id}}/edit/" class="btn btn-primary btn-xs">Edit Note</a>
+                                </div>
+                                <div class="col-lg-6">
                                     <form method="POST" action="/notes/{{$note->id}}">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
-                                        <button type="submit" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-success"><i class="fa fa-trash"></i></a>
+                                        <button type="submit" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-xs">Delete Note</a>
                                     </form>
                                 </div>
-                            </td>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                    </div>                
+                </div>
+            @endforeach
         </div>
     </div>
-
 @endsection
