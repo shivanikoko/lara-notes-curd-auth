@@ -51,8 +51,3 @@ Then you are ready to launch
 php artisan serve
 
 ```
-
-
-
-
-

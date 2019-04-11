@@ -16,7 +16,7 @@
                 <div class="col-lg-3">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">{{$note->title}}</h5>
+                            <h5 class="card-title"><a href="/notes/{{$note->id}}">{{$note->title}}</a></h5>
                             <h6 class="card-subtitle mb-2 text-muted"><i class='fa fa-clock'></i> 10 hours ago</h6>
                             <p class="card-text">{{ str_limit($note->description, $limit = 15, $end = '...') }}</p>
                             <div class="row">
