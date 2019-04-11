@@ -8,16 +8,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <a class="btn btn-success float-right" href="/notes/create">Add New Note</a>
+                <a class="btn btn-success float-right" href="/notes/create"><i class='fa fa-plus'></i> Add New Note</a>
             </div>
         </div>
+        <br>    
         <div class="row">
             @foreach($notes as $key=>$note)
                 <div class="col-lg-3">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><a href="/notes/{{$note->id}}">{{$note->title}}</a></h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><i class='fa fa-clock'></i> 10 hours ago</h6>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class='fa fa-clock-o'></i> {{$note->created_at}}</h6>
                             <p class="card-text">{{ str_limit($note->description, $limit = 15, $end = '...') }}</p>
                             <div class="row">
                                 <div class="col-lg-6">
